@@ -85,6 +85,7 @@ const HeroHeading = () => {
           style={{
             fontFamily: "'Urbanist', sans-serif",
             fontSize: '1.0rem',
+            paddingLeft: '1rem',
             lineHeight: 1.6,
             color: '#000000', // Defaulted to black as requested
             maxWidth: '300px', // Reduced width as requested

@@ -13,20 +13,20 @@ gsap.registerPlugin(ScrollTrigger);
 const SERVICES = [
   {
     id: "01",
-    title: "Interior Design",
-    desc: "Crafting beautiful, functional spaces tailored to your personal style, ensuring every detail reflects your vision.",
+    title: "Turnkey\n Design & Build",
+    desc: "End-to-end execution, from concept development to the final handover.",
     image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1200",
   },
   {
     id: "02",
     title: "Design\nConsultation",
-    desc: "Thoughtful direction to help you shape spaces that feel personal and intentional from concept to execution.",
+    desc: "Thoughtful direction to help you shape spaces that feel personal and intentional.",
     image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1200",
   },
   {
     id: "03",
-    title: "Space\nPlanning",
-    desc: "Optimizing layouts for better flow, maximizing every square foot of your property for ultimate usability.",
+    title: "Consultation\n + Execution",
+    desc: "Creative vision supported by precise, detail-driven execution.",
     image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200",
   },
 ];
@@ -218,8 +218,8 @@ const ServicesSection = () => {
                 </span>
                 <h3 style={{
                   fontFamily: "'Lacroom', serif",
-                  fontSize: 'clamp(2.5rem, 4.5vw, 3.2rem)',
-                  fontWeight: 400,
+                  fontSize: 'clamp(2.5rem, 3.3vw, 2.7rem)',
+                  // fontWeight: 200,
                   lineHeight: 1.0,
                   marginBottom: '1.25rem',
                   whiteSpace: 'pre-line',
@@ -230,9 +230,9 @@ const ServicesSection = () => {
                 <p style={{
                   fontFamily: "'Urbanist', sans-serif",
                   fontSize: '1.05rem',
-                  color: 'rgba(255,255,255,0.75)',
+                  color: '#ffffff',
                   lineHeight: 1.6,
-                  maxWidth: '480px', // Increased from 360px
+                  maxWidth: '300px', // Increased from 360px
                   fontWeight: 300,
                 }}>
                   {service.desc}
