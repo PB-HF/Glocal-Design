@@ -9,69 +9,70 @@ import React, { useState } from 'react';
 const STYLES = [
   {
     name: 'Mid Century Modern',
-    image: '/public/design/industrial.webp',
+    image: '/public/design/midcentury.webp',
     desc: 'Clean lines, organic curves',
   },
   {
     name: 'Industrial',
-    image: '/public/design/japandi.webp',
+    image: '/public/design/industrial.webp',
     desc: 'Raw materials, open spaces',
   },
   {
     name: 'Bohemian',
-    image: '/public/design/Maximalist.webp',
+    image: '/public/design/bohimian.webp',
     desc: 'Eclectic, artistic, free-spirited',
   },
   {
     name: 'Rustic',
-    image: '/public/design/Meditarrarian.webp',
+    image: '/public/design/Rustic.webp',
     desc: 'Natural wood, warm tones',
   },
   {
     name: 'Coastal',
-    image: '/public/design/midcentury.webp',
+    image: '/public/design/coastal.webp',
     desc: 'Breezy, light & ocean-inspired',
   },
   {
     name: 'Electic',
-    image: '/public/design/Rustic.webp',
+    image: '/public/design/electic.webp',
     desc: 'Bold mix of styles & eras',
   },
   {
     name: 'Transitional',
-    image: '/public/design/Traditional.webp',
+    image: '/public/design/transitional.webp',
     desc: 'Classic meets contemporary',
   },
   {
     name: 'Art Deco',
-    image: 'https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?w=800&q=80',
+    image: '/public/design/artdeco.webp',
     desc: 'Glamour, geometry & gold',
   },
   {
     name: 'Hollywood Regency',
-    image: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=80',
+    image: '/public/design/HollywoodRegency.webp',
     desc: 'Opulent, dramatic luxury',
   },
   {
     name: 'Japandi',
-    image: 'https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=800&q=80',
+    image: '/public/design/japandi.webp',
     desc: 'Japanese-Scandi minimalism',
   },
   {
     name: 'Maximalist',
-    image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80',
+    image: '/public/design/Maximalist.webp',
     desc: 'More is more — bold & layered',
   },
   {
     name: 'Mediterranean',
-    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80',
+    image: '/public/design/Meditarrarian.webp',
     desc: 'Warm terracotta & relaxed luxury',
   },
   {
     name: 'Traditional',
-    image: 'https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=800&q=80',
+    image: '/public/design/Traditional.webp',
     desc: 'Timeless elegance & symmetry',
   },
+
 ];
 
 const DesignStyles = () => {
