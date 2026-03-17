@@ -1,131 +1,88 @@
 /**
  * useScrollAnimation Hook
- * Synchronizes scroll position with animation frame index
- * Uses GSAP ScrollTrigger for high-performance tracking
+ * Synchronizes canvas frames with GSAP ScrollTrigger
+ * Eliminates manual scroll listeners for perfect page sync
  */
 
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const useScrollAnimation = (canvasRef, framePreloader, totalFrames = 120) => {
-  const [currentFrame, setCurrentFrame] = useState(0);
-  const animationRef = useRef(null);
-  const scrollProgressRef = useRef(0);
+export const useScrollAnimation = (canvasRef, framePreloader, totalFrames = 400) => {
+  const scrollTriggerRef = useRef(null);
 
   useEffect(() => {
-    if (!canvasRef.current || !framePreloader) {
-      console.warn('❌ Missing canvas or preloader');
-      return;
-    }
+    if (!canvasRef.current || !framePreloader) return;
 
-    console.log('📋 useScrollAnimation useEffect running...');
-    console.log('  Canvas:', canvasRef.current);
-    console.log('  Preloader:', framePreloader);
-    console.log('  Frames available:', framePreloader.frames.length);
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
 
     // Draw frame function
     const drawFrame = (frameIndex) => {
-      const canvas = canvasRef.current;
-      if (!canvas) {
-        console.warn('❌ Canvas not found');
-        return;
-      }
+      const frame = framePreloader.getFrame(Math.floor(frameIndex));
+      if (!frame) return;
 
-      const ctx = canvas.getContext('2d');
-      const frame = framePreloader.getFrame(frameIndex);
-
-      if (!frame) {
-        console.warn(`⚠️ Frame ${frameIndex} not loaded yet`);
-        // Draw a placeholder
-        ctx.fillStyle = '#222';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#888';
-        ctx.font = '14px monospace';
-        ctx.fillText(`Waiting for frame ${frameIndex}...`, 20, 40);
-        return;
-      }
-
-      // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Calculate dimensions to maintain aspect ratio
-      const imgAspectRatio = frame.width / frame.height;
-      const canvasAspectRatio = canvas.width / canvas.height;
+      const imgRatio = frame.width / frame.height;
+      const canvasRatio = canvas.width / canvas.height;
+      let dw, dh, dx, dy;
 
-      let drawWidth, drawHeight, drawX, drawY;
-
-      if (imgAspectRatio > canvasAspectRatio) {
-        // Image is wider - fit to canvas height
-        drawHeight = canvas.height;
-        drawWidth = drawHeight * imgAspectRatio;
-        drawX = (canvas.width - drawWidth) / 2;
-        drawY = 0;
+      if (imgRatio > canvasRatio) {
+        dh = canvas.height;
+        dw = dh * imgRatio;
+        dx = (canvas.width - dw) / 2;
+        dy = 0;
       } else {
-        // Image is taller - fit to canvas width
-        drawWidth = canvas.width;
-        drawHeight = drawWidth / imgAspectRatio;
-        drawX = 0;
-        drawY = (canvas.height - drawHeight) / 2;
+        dw = canvas.width;
+        dh = dw / imgRatio;
+        dx = 0;
+        dy = (canvas.height - dh) / 2;
       }
 
-      // Draw frame on canvas
-      try {
-        ctx.drawImage(frame, drawX, drawY, drawWidth, drawHeight);
-        if (frameIndex % 50 === 0) {
-          console.log(`✏️ Drew frame ${frameIndex} | Size: ${frame.width}x${frame.height}`);
-        }
-      } catch (e) {
-        console.error(`❌ Failed to draw frame ${frameIndex}:`, e);
-      }
+      ctx.drawImage(frame, dx, dy, dw, dh);
     };
 
-    console.log('🎯 Setting up ScrollTrigger...');
+    // Proxy object for GSAP to animate
+    const airbnb = { frame: 0 };
 
-    // Create a timeline that spans the entire scrollable area
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: 'body',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: true,
-        markers: false,
-        onUpdate: (self) => {
-          scrollProgressRef.current = self.progress;
-
-          // Calculate frame index based on scroll progress
-          const frameIndex = Math.floor(self.progress * totalFrames);
-          const clampedIndex = Math.max(0, Math.min(frameIndex, totalFrames - 1));
-
-          setCurrentFrame(clampedIndex);
-
-          // Draw frame on canvas using requestAnimationFrame for smoothness
-          if (animationRef.current === null) {
-            animationRef.current = requestAnimationFrame(() => {
-              drawFrame(clampedIndex);
-              animationRef.current = null;
-            });
-          }
-        },
+    // Create ScrollTrigger
+    scrollTriggerRef.current = ScrollTrigger.create({
+      trigger: document.body,
+      start: "top top",
+      // End matches the spacer div's height in Home.jsx
+      end: () => `${2.7 * window.innerHeight} top`, 
+      scrub: 0.2, // Slightly more smoothing
+      onUpdate: (self) => {
+        const frameIndex = self.progress * (totalFrames - 1);
+        drawFrame(frameIndex);
       },
+      onRefresh: (self) => {
+         // Fix canvas sizing on refresh
+         canvas.width = window.innerWidth;
+         canvas.height = window.innerHeight;
+         // Draw the CORRECT frame for the current scroll position
+         const frameIndex = self.progress * (totalFrames - 1);
+         drawFrame(frameIndex);
+      }
     });
 
-    // Draw initial frame immediately
-    console.log('🎨 Drawing initial frame 0...');
-    drawFrame(0);
+    // Initial draw
+    const init = async () => {
+      // Ensure first frame is ready
+      await framePreloader.loadFrame(0);
+      drawFrame(0);
+      // Refresh to sync with current scroll if already scrolled
+      ScrollTrigger.refresh();
+    };
+    init();
 
-    // Cleanup
     return () => {
-      console.log('Cleaning up ScrollTrigger');
-      tl.kill();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      if (scrollTriggerRef.current) scrollTriggerRef.current.kill();
     };
   }, [canvasRef, framePreloader, totalFrames]);
 
-  return {
-    currentFrame,
-    scrollProgress: scrollProgressRef.current,
-  };
+  return { scrollTrigger: scrollTriggerRef.current };
 };

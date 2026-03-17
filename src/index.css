@@ -1,19 +1,32 @@
 @import "tailwindcss";
 
+/* Custom Font — Lacroom */
+@font-face {
+  font-family: 'Lacroom';
+  src: url('/fonts/Lacroom.woff2') format('woff2'),
+       url('/fonts/Lacroom.woff') format('woff'),
+       url('/fonts/Lacroom.ttf') format('truetype'),
+       url('/fonts/Lacroom.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Smooth scrolling behavior */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 /* Optimize body for animations */
 body {
   margin: 0;
   padding: 0;
-  background: #000;
-  color: #fff;
+  background: #FAF8F5;
+  color: #323232;
   overflow-x: hidden;
 }
 
