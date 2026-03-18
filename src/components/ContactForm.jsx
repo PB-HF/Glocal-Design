@@ -34,11 +34,11 @@ const ContactForm = () => {
 
       // Phase 1: The "Zip" Opening (Thin vertical line grows from 10vh gap)
       // Initial state: 2px wide, 0% height, opacity 0 so no line is visible initially
-      gsap.set(formBoxRef.current, { 
+      gsap.set(formBoxRef.current, {
         width: '4px',
-        height: '0%', 
+        height: '0%',
         opacity: 0,
-        clipPath: 'ellipse(200% 200% at 50% 50%)', 
+        clipPath: 'ellipse(200% 200% at 50% 50%)',
         borderRadius: '2px',
       });
 
@@ -49,43 +49,43 @@ const ContactForm = () => {
       // Animate zip down (height grows, quickly fades in so it doesn't appear before scrolling)
       tl.to(formBoxRef.current, {
         height: '80vh',   // 10vh top gap + 80vh form + 10vh bottom gap = 100vh
-        opacity: 1,       
-        ease: 'none',
-        duration: 0.5, 
-      })
-      // Sync label: it moves down with the zip tip
-      .to(labelRef.current, {
-        y: '80vh',
         opacity: 1,
         ease: 'none',
         duration: 0.5,
-      }, 0) // start at same time as zip height growth
-      
-      // Phase 2: "Curvy Paper Spread" (Expands horizontally)
-      // Fade out label as we start spreading
-      .to(labelRef.current, {
-        opacity: 0,
-        duration: 0.1,
       })
-      .to(formBoxRef.current, {
-        width: '90%',          // Target final width
-        maxWidth: '1000px',
-        borderRadius: '0px',
-        clipPath: 'ellipse(150% 150% at 50% 50%)', // start curvy expand
-        ease: 'power2.inOut',
-        duration: 0.4,
-      })
-      // Smooth out the curve into a full rectangle
-      .to(formBoxRef.current, {
-        clipPath: 'ellipse(200% 200% at 50% 50%)', // effectively a rectangle
-        duration: 0.1,
-      }, '-=0.1')
-      // Fade in the form contents right as the paper finishes spreading
-      .to(formContents, {
-        opacity: 1,
-        duration: 0.2,
-        ease: 'power1.out',
-      }, '-=0.2');
+        // Sync label: it moves down with the zip tip
+        .to(labelRef.current, {
+          y: '80vh',
+          opacity: 1,
+          ease: 'none',
+          duration: 0.5,
+        }, 0) // start at same time as zip height growth
+
+        // Phase 2: "Curvy Paper Spread" (Expands horizontally)
+        // Fade out label as we start spreading
+        .to(labelRef.current, {
+          opacity: 0,
+          duration: 0.1,
+        })
+        .to(formBoxRef.current, {
+          width: '90%',          // Target final width
+          maxWidth: '1000px',
+          borderRadius: '0px',
+          clipPath: 'ellipse(150% 150% at 50% 50%)', // start curvy expand
+          ease: 'power2.inOut',
+          duration: 0.4,
+        })
+        // Smooth out the curve into a full rectangle
+        .to(formBoxRef.current, {
+          clipPath: 'ellipse(200% 200% at 50% 50%)', // effectively a rectangle
+          duration: 0.1,
+        }, '-=0.1')
+        // Fade in the form contents right as the paper finishes spreading
+        .to(formContents, {
+          opacity: 1,
+          duration: 0.2,
+          ease: 'power1.out',
+        }, '-=0.2');
 
     }, sectionRef);
 
@@ -100,7 +100,9 @@ const ContactForm = () => {
         position: 'relative',
         width: '100%',
         height: '100vh',
-        backgroundColor: '#8B0012',
+        backgroundImage: 'url(/images/contactbg.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'center',
@@ -110,7 +112,7 @@ const ContactForm = () => {
       }}
     >
       {/* ── Noise Overlay ── */}
-      <div 
+      <div
         style={{
           position: 'absolute',
           inset: 0,
@@ -129,8 +131,8 @@ const ContactForm = () => {
         ref={formBoxRef}
         style={{
           backgroundColor: '#ffffff',
-          boxShadow: '0 0 50px rgba(0,0,0,0.3)', 
-          marginTop: '0', 
+          boxShadow: '0 0 50px rgba(0,0,0,0.3)',
+          marginTop: '0',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
