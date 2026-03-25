@@ -25,10 +25,16 @@ const ContactForm = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=200%', // Gives plenty of scroll distance for the 2 phases
+          end: '+=80%', // Reduced drastically so it finishes much faster
           scrub: 1,
           pin: true,
           anticipatePin: 1,
+          snap: {
+            snapTo: [0, 0.5, 1], // Exactly hitting the vertical step (0.5), then the horizontal step (1.0)
+            duration: 0.4,
+            ease: 'power1.inOut',
+            delay: 0,
+          },
         },
       });
 

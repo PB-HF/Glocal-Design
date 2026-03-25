@@ -11,10 +11,10 @@ const Footer = () => {
 
   return (
     <footer className="bg-[#FAF8F5] pt-16 pb-0 relative z-30 overflow-hidden w-full">
-      <div className="max-w-[1200px] mx-auto w-full relative">
+      <div className="w-full max-w-[1500px] mx-auto px-6 md:px-16 lg:px-[8%] relative">
         
         {/* Scroll To Top Button */}
-        <div className="absolute top-0 right-6 md:right-12 -mt-4 md:-mt-8">
+        <div className="absolute top-0 right-6 md:right-16 lg:right-[8%] -mt-4 md:-mt-8">
           <button 
             onClick={scrollToTop}
             className="w-10 h-10 md:w-12 md:h-12 border border-[#c4c4c4] rounded-full flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all duration-300"
@@ -76,7 +76,7 @@ const Footer = () => {
 
       {/* Massive GLOCAL DESIGN Bottom Text */}
       <div className="w-full flex justify-center overflow-hidden">
-        <h1 className="font-['Lacroom'] font-normal text-[14.36vw] leading-none m-0 -mb-[3.5vw] whitespace-nowrap tracking-tight text-[#111]">
+        <h1 className="font-['Lacroom'] font-normal text-[14.3vw] leading-none m-0 -mb-[3.5vw] whitespace-nowrap tracking-tight text-[#111]">
           GLOCAL DESIGN
         </h1>
       </div>
