@@ -18,7 +18,11 @@ export const useScrollAnimation = (canvasRef, framePreloader, totalFrames = 361)
     if (!canvasRef.current || !framePreloader) return;
 
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d', { alpha: false });
+    const ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: false });
+    
+    // Optimize canvas rendering
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
 
     // Draw frame function with caching to avoid re-drawing same frame
     const drawFrame = (frameIndex) => {
@@ -29,8 +33,9 @@ export const useScrollAnimation = (canvasRef, framePreloader, totalFrames = 361)
       lastFrameRef.current = floorIndex;
 
       const frame = framePreloader.getFrame(floorIndex);
-      if (!frame) return;
+      if (!frame || !frame.complete) return;
 
+      // Use ImageData for better performance
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const imgRatio = frame.width / frame.height;
@@ -49,6 +54,8 @@ export const useScrollAnimation = (canvasRef, framePreloader, totalFrames = 361)
         dy = (canvas.height - dh) / 2;
       }
 
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(frame, dx, dy, dw, dh);
     };
 
@@ -58,7 +65,7 @@ export const useScrollAnimation = (canvasRef, framePreloader, totalFrames = 361)
       start: "top top",
       endTrigger: "#about-us", // Use About Us as the end reference
       end: "top bottom", // Finish animation exactly when About Us touches the bottom of the screen 
-      scrub: 0.5, // Reduced scrub delay for better responsiveness
+      scrub: 0.1, // Reduced scrub delay for silky smooth performance
       fastScrollEnd: true, // Improve performance on fast scroll
       onUpdate: (self) => {
         const frameIndex = self.progress * (totalFrames - 1);
