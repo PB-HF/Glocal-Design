@@ -231,7 +231,7 @@ const ProjectsCarousel = ({ subtitle }) => {
         zIndex: 20,
         width: '100%',
         backgroundColor: '#FAF8F5',
-        paddingTop: '5rem',
+        paddingTop: '1.5rem', // Reduced from 5rem
         paddingBottom: '5rem',
         overflow: 'hidden',
         perspective: '1000px'
@@ -268,9 +268,9 @@ const ProjectsCarousel = ({ subtitle }) => {
         <p style={{
           fontFamily: "'Urbanist', sans-serif",
           fontWeight: 300,
-          fontSize: isMobile ? '0.95rem' : '1.05rem',
+          fontSize: isMobile ? '0.95rem' : '1.3rem',
           color: '#6b6b6b',
-          maxWidth: '600px',
+          maxWidth: '470px',
           lineHeight: 1.6,
           margin: '0 auto',
         }}>

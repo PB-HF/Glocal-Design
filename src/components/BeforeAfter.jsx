@@ -114,18 +114,47 @@ const BeforeAfter = ({
           /* initial position set by gsap.set above */
         }}
       >
-        <img
+        {/* Wrapper to hold both the moving image and text */}
+        <div
           ref={afterImgRef}
-          src={afterImage}
-          alt={afterLabel}
           style={{
             width: '100%',
             height: '100%',
-            objectFit: 'cover',
-            display: 'block',
-            /* initial position set by gsap.set above */
+            position: 'absolute',
+            inset: 0,
           }}
-        />
+        >
+          <img
+            src={afterImage}
+            alt={afterLabel}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+            }}
+          />
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 10,
+            pointerEvents: 'none',
+          }}>
+            <h2 style={{
+              fontFamily: "'Lacroom', serif",
+              fontSize: 'clamp(3.5rem, 10vw, 8.5rem)',
+              color: '#ffffff',
+              margin: 0,
+              fontWeight: 400,
+              letterSpacing: '0.05em',
+              lineHeight: 1,
+            }}>
+              MODERN
+            </h2>
+          </div>
+        </div>
         {/* <span style={labelStyle('right')}>
           {afterLabel}
         </span> */}

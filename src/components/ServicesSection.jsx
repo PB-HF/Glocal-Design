@@ -52,11 +52,13 @@ const ServicesSection = () => {
       scrollTrigger: {
         trigger: triggerRef.current,
         start: 'top top',
-        end: `+=${cards.length * 40}%`, // Reduced for a "1 scroll" feel
+        end: `+=${cards.length * 100}%`,
         pin: true,
-        scrub: 1.8, // More inertia for liquid feel
+        scrub: 1.8,
       }
     });
+
+    let currentTime = 0;
 
     cards.forEach((card, i) => {
       // Setup initial states
@@ -64,16 +66,15 @@ const ServicesSection = () => {
         gsap.set(card, { y: '110%', opacity: 0 });
       }
 
-      // 1. Sliding logic for COMPLETE overlap
+      // 1. Sliding logic for entering card and exiting previous card
       if (i > 0) {
         tl.to(card, {
           y: '0%',
           opacity: 1,
           duration: 2,
           ease: 'power3.inOut',
-        }, i * 2);
+        }, currentTime);
 
-        // 2. Depth effect: Scale down the previous card
         const prevCard = cards[i - 1];
         tl.to(prevCard, {
           scale: 0.9,
@@ -81,24 +82,31 @@ const ServicesSection = () => {
           filter: 'blur(15px)',
           duration: 2,
           ease: 'power3.inOut',
-        }, i * 2);
+        }, currentTime);
+        
+        // Advance timeline past the transition
+        currentTime += 2;
       }
 
-      // 3. Inner image subtle zoom/shift
+      // 2. Reading phase: subtle image zoom while the card holds completely still
       const innerImg = card.querySelector('.inner-clear-image');
       if (innerImg) {
-        // For the first card (i=0), we start from a more 'rested' state 
-        // because it's already on-screen. For others, we start zoomed.
         const startScale = (i === 0) ? 1.12 : 1.25;
         const startY = (i === 0) ? '2%' : '5%';
 
         tl.fromTo(innerImg,
           { scale: startScale, y: startY },
           { scale: 1, y: '-5%', ease: 'none', duration: 2 },
-          i * 2
+          currentTime
         );
       }
+      
+      // Advance timeline past the reading phase so every card gets equal scroll focus
+      currentTime += 2;
     });
+
+    // Final padding before unpinning
+    tl.to({}, { duration: 0.5 });
 
     return () => {
       ScrollTrigger.getAll().forEach(st => st.kill());

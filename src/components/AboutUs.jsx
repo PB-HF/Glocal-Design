@@ -58,7 +58,7 @@ const AboutUs = () => {
       className="relative z-10 w-full flex items-center justify-center"
       style={{
         backgroundColor: '#FAF8F5',
-        minHeight: isMobile ? 'auto' : '90vh',
+        minHeight: isMobile ? 'auto' : '100vh',
         paddingTop: isMobile ? '2rem' : '4rem',
         paddingBottom: isMobile ? '2rem' : '4rem',
       }}
@@ -68,7 +68,7 @@ const AboutUs = () => {
         className="text-center px-6 max-w-3xl mx-auto"
       >
         {/* Label — ABOUT US */}
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-15">
           <div style={{ overflow: 'hidden' }}>
             <span
               className="reveal-text inline-block"
@@ -94,7 +94,7 @@ const AboutUs = () => {
             fontWeight: 200,
             lineHeight: 1.0,
             fontSize: 'clamp(2.4rem, 6vw, 4.4rem)',
-            marginBottom: '3rem',
+            marginBottom: '1.5rem',
           }}
         >
           <div style={{ overflow: 'hidden' }}>
