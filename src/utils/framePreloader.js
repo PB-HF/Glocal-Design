@@ -66,7 +66,7 @@ class FramePreloader {
   loadFrame(index) {
     return new Promise((resolve, reject) => {
       const frameNum = this.getFrameNumber(index);
-      const imgPath = `/frames/video_${frameNum}.webp`;
+      const imgPath = `/frames/Gd_${frameNum}.webp`;
 
       const img = new Image();
       img.onload = () => {

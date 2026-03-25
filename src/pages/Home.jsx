@@ -26,7 +26,7 @@ const Home = () => {
       <Navbar />
 
       {/* Canvas background (fixed, behind everything) */}
-      <ScrollAnimationCanvas totalFrames={361} />
+      <ScrollAnimationCanvas totalFrames={377} />
 
       {/* Hero Heading (positioned over canvas) */}
       <HeroHeading />

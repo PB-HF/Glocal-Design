@@ -8,7 +8,7 @@ import React, { useEffect, useRef } from 'react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import FramePreloader from '../utils/framePreloader';
 
-const ScrollAnimationCanvas = ({ totalFrames = 361 }) => {
+const ScrollAnimationCanvas = ({ totalFrames = 377 }) => {
   const canvasRef = useRef(null);
   const framePreloaderRef = useRef(null);
 
