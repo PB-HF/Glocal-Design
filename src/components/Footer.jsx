@@ -1,121 +1,82 @@
+/**
+ * Footer Component
+ * Redesigned to match premium UI with responsive behavior
+ */
 import React from 'react';
 
 const Footer = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer
-      style={{
-        backgroundColor: '#ffffff',
-        paddingTop: '4rem',
-        paddingBottom: '0', 
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'relative',
-        zIndex: 30, 
-        overflow: 'hidden',
-      }}
-    >
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', width: '100%' }}>
-
-        {/* ── Top Section: Columns & Socials ── */}
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'flex-end', // Aligns icons with the bottom line (email)
-            marginBottom: '2.5rem',
-          }}
-        >
-          {/* Columns Container */}
-          <div
-            style={{
-              display: 'flex',
-              gap: '6rem',
-              flexWrap: 'wrap',
-            }}
+    <footer className="bg-[#FAF8F5] pt-16 pb-0 relative z-30 overflow-hidden w-full">
+      <div className="max-w-[1200px] mx-auto w-full relative">
+        
+        {/* Scroll To Top Button */}
+        <div className="absolute top-0 right-6 md:right-12 -mt-4 md:-mt-8">
+          <button 
+            onClick={scrollToTop}
+            className="w-10 h-10 md:w-12 md:h-12 border border-[#c4c4c4] rounded-full flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all duration-300"
+            aria-label="Scroll to top"
           >
-            {/* Column 1: Quick Links */}
-            <div>
-              <h4 style={colHeadingStyle}>Quick Links</h4>
-              <ul style={listStyle}>
-                <li style={listItemStyle}>Home</li>
-                <li style={listItemStyle}>About Us</li>
-                <li style={listItemStyle}>Services</li>
-                <li style={listItemStyle}>Contact Us</li>
-              </ul>
-            </div>
-
-            {/* Column 2: Services */}
-            <div>
-              <h4 style={colHeadingStyle}>Services</h4>
-              <ul style={listStyle}>
-                <li style={listItemStyle}>Turnkey Design & Build</li>
-                <li style={listItemStyle}>Design Consultation</li>
-                <li style={listItemStyle}>Consultation + Execution</li>
-              </ul>
-            </div>
-
-            {/* Column 3: Contact */}
-            <div>
-              <h4 style={colHeadingStyle}>Contact</h4>
-              <ul style={listStyle}>
-                <li style={listItemStyle}>Glocal Design</li>
-                <li style={listItemStyle}>B-73, Head Field Solutions,<br />Sector-57, Noida</li>
-                <li style={listItemStyle}>+91 91661 97371</li>
-                <li style={listItemStyle}>Info@Glocaldesign.Com</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Social Icons Container - Now back to the far right, level with email */}
-          <div style={{ display: 'flex', gap: '0.8rem' }}>
-            <SocialIcon type="linkedin" />
-            <SocialIcon type="instagram" />
-            <SocialIcon type="youtube" />
-          </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 19V5M5 12l7-7 7 7"/>
+            </svg>
+          </button>
         </div>
 
-        {/* ── Divider Line ── */}
-        <div style={{ width: '100%', height: '1.2px', backgroundColor: '#e5e5e5', marginBottom: '1.5rem' }} />
+        {/* Main Flex Container */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 mt-8 md:mt-16 gap-12 md:gap-8">
+           
+           {/* Left Column: Heading */}
+           <div className="max-w-xl">
+             <h2 className="font-['Lacroom'] text-[2.8rem] md:text-[3.5rem] lg:text-[4.2rem] text-[#111] mb-3 md:mb-5 leading-[1.05] tracking-tight">
+               Turning Concepts<br/>Into Landmarks.
+             </h2>
+             <p className="font-['Urbanist'] text-[#999] font-light text-base md:text-[1.05rem] tracking-wide">
+               Your <span className="text-[#b2000a] font-medium">dream space</span> is just a conversation away
+             </p>
+           </div>
 
-        {/* ── Copyright ── */}
-        <div style={{ textAlign: 'center'}}>
-          <p
-            style={{
-              fontFamily: "'Urbanist', sans-serif",
-              fontSize: '0.8rem',
-              color: '#a0a0a0',
-              fontWeight: 400,
-            }}
-          >
+           {/* Right Column: Contact & Socials */}
+           <div className="flex flex-col md:flex-row items-start md:items-end gap-6 md:gap-12 lg:gap-16">
+              
+              {/* Contact Info */}
+              <div>
+                <h4 className="font-['Urbanist'] font-semibold text-[#111] mb-3 text-[0.95rem]">Contact</h4>
+                <ul className="list-none p-0 m-0 flex flex-col gap-[0.35rem] font-['Urbanist'] text-[0.85rem] text-[#555] font-normal tracking-[0.02em]">
+                   <li>Glocal Design</li>
+                   <li className="leading-relaxed">B-73, Head Field Solutions,<br/>Sector-57, Noida</li>
+                   <li>+91 91661 97371</li>
+                   <li className="pt-1">Info@Glocaldesign.Com</li>
+                </ul>
+              </div>
+
+              {/* Social Icons */}
+              <div className="flex gap-3 pb-[0.15rem] mt-2 md:mt-0">
+                <SocialIcon type="linkedin" />
+                <SocialIcon type="instagram" />
+                <SocialIcon type="youtube" />
+              </div>
+           </div>
+
+        </div>
+
+        {/* Divider Line */}
+        <div className="w-full h-[1px] bg-[#e3e3e3] mb-6" />
+
+        {/* Copyright */}
+        <div className="text-center mb-10 md:mb-8">
+          <p className="font-['Urbanist'] text-[0.7rem] md:text-[0.75rem] text-[#a0a0a0] font-light tracking-[0.05em]">
             Copyright © 2025 - All Rights Reserved By Glocal Studio.
           </p>
         </div>
       </div>
 
-      {/* ── Massive Bottom Text ── */}
-      <div
-        style={{
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center',
-          overflow: 'hidden',
-          marginTop: '1rem',
-          paddingBottom: '0',
-        }}
-      >
-        <h1
-          style={{
-            fontFamily: "'Lacroom', serif",
-            fontWeight: 400,
-            fontSize: '14.36vw', 
-            lineHeight: 1.0, // Tighter line height
-            margin: 0,
-            marginBottom: '-3vw', // Pulls the text down further to remove the internal font gap
-            whiteSpace: 'nowrap',
-            letterSpacing: '-0.03em',
-          }}
-        >
+      {/* Massive GLOCAL DESIGN Bottom Text */}
+      <div className="w-full flex justify-center overflow-hidden">
+        <h1 className="font-['Lacroom'] font-normal text-[14.36vw] leading-none m-0 -mb-[3.5vw] whitespace-nowrap tracking-tight text-[#111]">
           GLOCAL DESIGN
         </h1>
       </div>
@@ -123,42 +84,13 @@ const Footer = () => {
   );
 };
 
-// ── Reusable Styles ──
-
-const colHeadingStyle = {
-  fontFamily: "'Urbanist', sans-serif",
-  fontWeight: 600,
-  fontSize: '0.95rem',
-  color: '#2b2b2b',
-  marginBottom: '1.2rem',
-};
-
-const listStyle = {
-  listStyle: 'none',
-  padding: 0,
-  margin: 0,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '0.6rem',
-};
-
-const listItemStyle = {
-  fontFamily: "'Urbanist', sans-serif",
-  fontWeight: 400,
-  fontSize: '0.85rem',
-  color: '#080808ff',
-  cursor: 'pointer',
-  transition: 'color 0.2s ease',
-};
-
 // ── Social Icon SVG Component ──
-
 const SocialIcon = ({ type }) => {
   const getIcon = () => {
     switch (type) {
       case 'linkedin':
         return (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
             <rect x="2" y="9" width="4" height="12"></rect>
             <circle cx="4" cy="4" r="2"></circle>
@@ -166,7 +98,7 @@ const SocialIcon = ({ type }) => {
         );
       case 'instagram':
         return (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
@@ -174,7 +106,7 @@ const SocialIcon = ({ type }) => {
         );
       case 'youtube':
         return (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
             <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
           </svg>
@@ -186,19 +118,7 @@ const SocialIcon = ({ type }) => {
 
   return (
     <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '32px',
-        height: '32px',
-        backgroundColor: '#b2000a',
-        color: '#fff',
-        borderRadius: '5px', // slightly rounded square
-        cursor: 'pointer',
-        transition: 'transform 0.2s',
-      }}
-      className="hover:-translate-y-1"
+      className="flex items-center justify-center w-7 h-7 bg-[#b2000a] text-white rounded cursor-pointer transition-transform duration-200 hover:-translate-y-1"
     >
       {getIcon()}
     </div>
