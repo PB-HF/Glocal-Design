@@ -68,7 +68,7 @@ const SectionHeader = ({ subtitle, title, titleAccent }) => {
     <div 
       ref={containerRef}
       style={{ 
-        padding: '6rem 2rem 4rem 2rem', 
+        padding: '4rem 2rem 1rem 2rem', 
         textAlign: 'center', 
         backgroundColor: '#FAF8F5',
         width: '100%',

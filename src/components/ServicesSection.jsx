@@ -119,7 +119,7 @@ const ServicesSection = () => {
       style={{
         overflow: 'hidden',
         backgroundColor: '#FAF8F5',
-        paddingBottom: '10rem' // Added space after section finishes
+        paddingBottom: '2rem'
       }}
     >
       <div

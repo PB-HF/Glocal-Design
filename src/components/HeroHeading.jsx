@@ -61,7 +61,7 @@ const HeroHeading = () => {
           style={{
             fontFamily: "'Lacroom', serif",
             fontWeight: 400,
-            fontSize: 'clamp(4rem, 9.5vw, 9.5rem)',
+            fontSize: 'clamp(4rem, 7.5vw, 7.5rem)',
             lineHeight: 1.05,
             color: '#323232',
             textTransform: 'uppercase',
@@ -75,7 +75,7 @@ const HeroHeading = () => {
           style={{
             fontFamily: "'Lacroom', serif",
             fontWeight: 400,
-            fontSize: 'clamp(4rem, 9.5vw, 9.5rem)',
+            fontSize: 'clamp(4rem, 7.5vw, 7.5rem)',
             lineHeight: 1.05,
             color: '#323232',
             textTransform: 'uppercase',

@@ -231,7 +231,7 @@ const ProjectsCarousel = ({ subtitle }) => {
         zIndex: 20,
         width: '100%',
         backgroundColor: '#FAF8F5',
-        paddingTop: '1.5rem', // Reduced from 5rem
+        paddingTop: '1rem',
         paddingBottom: '5rem',
         overflow: 'hidden',
         perspective: '1000px'
@@ -246,11 +246,13 @@ const ProjectsCarousel = ({ subtitle }) => {
           letterSpacing: '0.24em',
           textTransform: 'uppercase',
           color: '#8b8b8b',
-          marginBottom: '1.2rem',
+          marginBottom: '0.3rem',
           fontWeight: 600,
           borderBottom: '1px solid #e2d8d8ff',
           paddingBottom: '2px',
           display: 'inline-block',
+          margin: 0,
+          marginBottom: '0.3rem',
         }}>
           {splitLetters(subtitle || 'Projects')}
         </p>
@@ -261,7 +263,7 @@ const ProjectsCarousel = ({ subtitle }) => {
           fontSize: isMobile ? 'clamp(1.8rem, 6vw, 2.5rem)' : 'clamp(2.5rem, 6vw, 4.2rem)',
           color: '#2b2b2b',
           lineHeight: 1.05,
-          marginBottom: '1rem',
+          marginBottom: '0.4rem',
         }}>
           {splitLetters("A Testament To Excellence")}
         </h2>
@@ -272,7 +274,7 @@ const ProjectsCarousel = ({ subtitle }) => {
           color: '#6b6b6b',
           maxWidth: '470px',
           lineHeight: 1.6,
-          margin: '0 auto',
+          margin: '0.2rem auto 0',
         }}>
           {splitLetters("A curated collection of ")}
           <span style={{ color: '#B2000A' }}>
@@ -286,7 +288,7 @@ const ProjectsCarousel = ({ subtitle }) => {
           href="https://glocaldesign.in/projects/"
           className="view-projects-btn"
           style={{
-            marginTop: '2.5rem',
+            marginTop: '1.2rem',
             padding: '0.85rem 2.6rem',
             backgroundColor: '#B2000A',
             color: '#FFFFFF',

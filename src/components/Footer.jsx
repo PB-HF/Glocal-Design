@@ -5,27 +5,10 @@
 import React from 'react';
 
 const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
     <footer className="bg-[#FAF8F5] pt-40 pb-0 relative z-30 overflow-hidden w-full">
       <div className="w-full max-w-[1500px] mx-auto px-6 md:px-16 lg:px-[8%] relative">
         
-        {/* Scroll To Top Button */}
-        <div className="absolute top-0 right-6 md:right-16 lg:right-[8%] -mt-4 md:-mt-8 animate-bounce">
-          <button 
-            onClick={scrollToTop}
-            className="w-10 h-10 md:w-12 md:h-12 border border-[#c4c4c4] rounded-full flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all duration-300 shadow-sm"
-            aria-label="Scroll to top"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 19V5M5 12l7-7 7 7"/>
-            </svg>
-          </button>
-        </div>
-
         {/* Main Flex Container */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 mt-8 md:mt-16 gap-12 md:gap-8">
            

@@ -537,7 +537,7 @@ const Navbar = () => {
             src="/images/logo.png"
             alt="Glocal Design Logo"
             style={{
-              height: '65px',
+              height: '50px',
               width: 'auto',
               objectFit: 'contain',
               filter: logoFilter,

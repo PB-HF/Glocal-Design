@@ -3,7 +3,7 @@
  * LERP-based scroll animation with 200vh scroll area
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import HeroHeading from '../components/HeroHeading';
 import HeroQuotes from '../components/HeroQuotes';
@@ -20,8 +20,43 @@ import ContactForm from '../components/ContactForm';
 import Footer from '../components/Footer';
 
 const Home = () => {
+  const [showScrollButton, setShowScrollButton] = useState(false);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show arrow only after scrolling past ~2000px (frame sections)
+      if (window.scrollY > 2000) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="relative w-full overflow-x-hidden">
+      {/* Scroll To Top Button - Show only after frame sections */}
+      {showScrollButton && (
+        <div className="fixed bottom-8 right-8 md:bottom-10 md:right-10 z-50 animate-bounce">
+          <button 
+            onClick={scrollToTop}
+            className="w-10 h-10 md:w-12 md:h-12 border border-[#c4c4c4] rounded-full flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all duration-300 shadow-sm bg-white"
+            aria-label="Scroll to top"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 19V5M5 12l7-7 7 7"/>
+            </svg>
+          </button>
+        </div>
+      )}
+
       {/* Navigation Bar */}
       <Navbar />
 
