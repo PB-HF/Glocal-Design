@@ -1,6 +1,6 @@
 /**
  * Frame Preloader Utility
- * Efficiently loads image frames from /public/frames/
+ * Efficiently loads image frames from /frames/
  * Caches loaded images in memory for smooth playback
  */
 

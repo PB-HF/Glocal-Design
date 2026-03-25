@@ -13,21 +13,21 @@ gsap.registerPlugin(ScrollTrigger);
 const SERVICES = [
   {
     id: "01",
-    title: "Turnkey\n Design & Build",
-    desc: "End-to-end execution, from concept development to the final handover.",
-    image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1200",
+    title: "Design\n Consultation",
+    desc: "Thoughtful direction to help you shape spaces that feel personal and intentional.",
+    image: "/images/service1.png",
   },
   {
     id: "02",
-    title: "Design\nConsultation",
-    desc: "Thoughtful direction to help you shape spaces that feel personal and intentional.",
-    image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1200",
+    title: "Luxury\n Projects",
+    desc: "Delivering high-value projects with careful planning, precision, and superior finishes.",
+    image: "/images/service2.png",
   },
   {
     id: "03",
     title: "Consultation\n + Execution",
-    desc: "Creative vision supported by precise, detail-driven execution.",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200",
+    desc: "End-to-end execution, from concept development to the final handover.",
+    image: "/images/service3.png",
   },
 ];
 

@@ -12,77 +12,72 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const PROJECTS = [
-// ... existing PROJECTS array ...
-// (I will keep the replacement targeted to the component logic below)
   {
     id: 1,
-    title: 'Jaipur Heritage Villa',
-    category: 'Residential',
-    location: 'Jaipur, Rajasthan',
-    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=85',
+    title: "Bachelor's Pad",
+    location: 'Mumbai',
+    image: '/projectcarousel/BACHELOR\'S PAD, MUMBAI.jpeg',
   },
   {
     id: 2,
-    title: 'Mumbai Sky Penthouse',
-    category: 'Luxury Living',
-    location: 'Bandra, Mumbai',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=85',
+    title: 'Builder Apartment',
+    location: 'Gurugram',
+    image: '/projectcarousel/BUILDER APARTMENT, GURUGRAM.jpeg',
   },
   {
     id: 3,
-    title: 'Delhi Contemporary Home',
-    category: 'Modern Living',
-    location: 'Vasant Vihar, Delhi',
-    image: 'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=700&q=85',
+    title: 'Classical House',
+    location: 'Anand Niketan',
+    image: '/projectcarousel/classical house, anand niketan.jpeg',
   },
   {
     id: 4,
-    title: 'Goa Beach Retreat',
-    category: 'Vacation Home',
-    location: 'Candolim, Goa',
-    image: 'https://images.unsplash.com/photo-1499955085172-a104c9463ece?w=700&q=85',
+    title: 'Jaipur Retreat',
+    location: 'Jaipur',
+    image: '/projectcarousel/JAIPUR RETREAT.png',
   },
   {
     id: 5,
-    title: 'Bangalore Tech Residence',
-    category: 'Executive Living',
-    location: 'Whitefield, Bangalore',
-    image: 'https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?w=700&q=85',
+    title: 'Kaveri House',
+    location: 'Chennai',
+    image: '/projectcarousel/KAVERI HOUSE, CHENNAI.jpeg',
   },
   {
     id: 6,
-    title: 'Udaipur Lake Bungalow',
-    category: 'Heritage Modern',
-    location: 'Udaipur, Rajasthan',
-    image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=85',
+    title: 'Krishna Niwas',
+    location: 'Chhatarpur',
+    image: '/projectcarousel/KRISHNA NIWAS, CHATTARPUR.jpeg',
   },
   {
     id: 7,
-    title: 'Chennai Art Collector Home',
-    category: 'Eclectic Luxury',
-    location: 'RA Puram, Chennai',
-    image: 'https://images.unsplash.com/photo-1522444195799-478538b28823?w=700&q=85',
+    title: 'Lake House',
+    location: 'Kochi',
+    image: '/projectcarousel/LAKE HOUSE, KOCHI.png',
   },
   {
     id: 8,
-    title: 'Hyderabad Presidential Suite',
-    category: 'Hospitality',
-    location: 'Jubilee Hills, Hyderabad',
-    image: 'https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=700&q=85',
+    title: 'Modern House',
+    location: 'Lucknow',
+    image: '/projectcarousel/MODERN HOUSE, LUCKNOW.jpeg',
   },
   {
     id: 9,
-    title: 'Kolkata Heritage Villa',
-    category: 'Residential',
-    location: 'Kolkata, West Bengal',
-    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=85',
+    title: 'Modern Luxury Residence',
+    location: 'Vasant Vihar',
+    image: '/projectcarousel/MODERN LUXURY RESIDENCE, VASANT VIHAR.jpeg',
+  },
+  {
+    id: 10,
+    title: 'Scandinavian Holiday Home',
+    location: 'Gurugram',
+    image: '/projectcarousel/SCANDINAVIAN HOLIDAY HOME\'.jpeg',
   },
 ];
 
 const CARD_W = 280;
 const CARD_H = 420;
 
-const ProjectsCarousel = () => {
+const ProjectsCarousel = ({ subtitle }) => {
   const [activeIdx, setActiveIdx] = useState(2);
   const isDragging = useRef(false);
   const dragStartX = useRef(0);
@@ -236,6 +231,22 @@ const ProjectsCarousel = () => {
     >
       {/* ── Heading ── */}
       <div style={{ textAlign: 'center', marginBottom: '3.5rem', padding: '0 2rem' }}>
+        
+        <p style={{
+          fontFamily: "'Urbanist', sans-serif",
+          fontSize: '0.75rem',
+          letterSpacing: '0.24em',
+          textTransform: 'uppercase',
+          color: '#8b8b8b',
+          marginBottom: '1.2rem',
+          fontWeight: 600,
+          borderBottom: '1px solid #e2d8d8ff',
+          paddingBottom: '2px',
+          display: 'inline-block',
+        }}>
+          {splitLetters(subtitle || 'Projects')}
+        </p>
+
         <h2 style={{
           fontFamily: "'Lacroom', serif",
           fontWeight: 400,
@@ -299,25 +310,7 @@ const ProjectsCarousel = () => {
               inset: 0,
               background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.05) 50%, transparent 100%)',
             }} />
-            {/* Category pill */}
-            <div style={{
-              position: 'absolute',
-              top: '1rem',
-              left: '1rem',
-              fontFamily: "'Urbanist', sans-serif",
-              fontSize: '0.6rem',
-              letterSpacing: '0.16em',
-              textTransform: 'uppercase',
-              color: '#fff',
-              background: 'rgba(255,255,255,0.15)',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)',
-              padding: '4px 10px',
-              borderRadius: '100px',
-              border: '1px solid rgba(255,255,255,0.3)',
-            }}>
-              {project.category}
-            </div>
+
             {/* Card info */}
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '1.1rem 1.3rem 1.4rem' }}>
               <h3 style={{
