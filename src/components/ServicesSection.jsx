@@ -34,6 +34,14 @@ const SERVICES = [
 const ServicesSection = () => {
   const containerRef = useRef(null);
   const triggerRef = useRef(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -145,7 +153,9 @@ const ServicesSection = () => {
                 borderRadius: '40px',
                 overflow: 'hidden',
                 display: 'flex',
+                flexDirection: isMobile ? 'column' : 'row',
                 alignItems: 'center',
+                justifyContent: isMobile ? 'flex-start' : 'center',
                 // boxShadow: '0 60px 140px rgba(0,0,0,0.2)',
                 zIndex: idx,
                 willChange: 'transform, opacity, filter',
@@ -174,9 +184,10 @@ const ServicesSection = () => {
               {/* Inner Clear Image */}
               <div style={{
                 position: 'relative',
-                marginLeft: '3.5rem',
-                width: '42%',
-                height: '95%', // Filling more of the larger card
+                marginLeft: isMobile ? '0' : '3.5rem',
+                marginTop: isMobile ? '1.5rem' : '0',
+                width: isMobile ? '88%' : '42%',
+                height: isMobile ? '45%' : '95%', // Filling more of the larger card
                 borderRadius: '30px',
                 overflow: 'hidden',
                 zIndex: 1,
@@ -199,29 +210,29 @@ const ServicesSection = () => {
                 position: 'relative',
                 zIndex: 2,
                 flex: 1,
-                padding: '0 4rem 0 3rem', // Reduced padding to give more width to text
+                padding: isMobile ? '2rem 1.5rem' : '0 4rem 0 3rem', // Reduced padding to give more width to text
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                alignItems: 'flex-end',
-                textAlign: 'right',
+                alignItems: isMobile ? 'center' : 'flex-end',
+                textAlign: isMobile ? 'center' : 'right',
                 color: '#fff',
               }}>
                 <span style={{
                   fontFamily: "'Lacroom', serif",
-                  fontSize: '2rem',
+                  fontSize: isMobile ? '1.5rem' : '2rem',
                   color: 'rgba(255,255,255,0.25)',
-                  marginBottom: '1rem',
+                  marginBottom: isMobile ? '0.5rem' : '1rem',
                   letterSpacing: '0.05em',
                 }}>
                   {service.id}
                 </span>
                 <h3 style={{
                   fontFamily: "'Lacroom', serif",
-                  fontSize: 'clamp(2.5rem, 3.3vw, 2.7rem)',
+                  fontSize: isMobile ? 'clamp(2.2rem, 8vw, 2.7rem)' : 'clamp(2.5rem, 3.3vw, 2.7rem)',
                   // fontWeight: 200,
                   lineHeight: 1.0,
-                  marginBottom: '1.25rem',
+                  marginBottom: isMobile ? '1rem' : '1.25rem',
                   whiteSpace: 'pre-line',
                   maxWidth: '650px', // Added maxWidth for the title area to allow it to be wider
                 }}>
@@ -229,10 +240,10 @@ const ServicesSection = () => {
                 </h3>
                 <p style={{
                   fontFamily: "'Urbanist', sans-serif",
-                  fontSize: '1.05rem',
+                  fontSize: isMobile ? '0.95rem' : '1.05rem',
                   color: '#ffffff',
                   lineHeight: 1.6,
-                  maxWidth: '300px', // Increased from 360px
+                  maxWidth: isMobile ? '90%' : '300px', // Increased from 360px
                   fontWeight: 300,
                 }}>
                   {service.desc}
