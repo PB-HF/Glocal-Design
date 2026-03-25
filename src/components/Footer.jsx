@@ -14,7 +14,7 @@ const Footer = () => {
         overflow: 'hidden',
       }}
     >
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', width: '100%' }}>
+      <div style={{ maxWidth: '1200px', margin: 'auto', padding: '0 0', width: '100%' }}>
 
         {/* ── Top Section: Columns & Socials ── */}
         <div
@@ -27,15 +27,15 @@ const Footer = () => {
           }}
         >
           {/* Columns Container */}
-          <div
+          {/* <div
             style={{
               display: 'flex',
               gap: '6rem',
               flexWrap: 'wrap',
             }}
-          >
+          > */}
             {/* Column 1: Quick Links */}
-            <div>
+            {/* <div>
               <h4 style={colHeadingStyle}>Quick Links</h4>
               <ul style={listStyle}>
                 <li style={listItemStyle}>Home</li>
@@ -43,17 +43,18 @@ const Footer = () => {
                 <li style={listItemStyle}>Services</li>
                 <li style={listItemStyle}>Contact Us</li>
               </ul>
-            </div>
+            </div> */}
 
             {/* Column 2: Services */}
-            <div>
+            {/* <div>
               <h4 style={colHeadingStyle}>Services</h4>
               <ul style={listStyle}>
                 <li style={listItemStyle}>Turnkey Design & Build</li>
                 <li style={listItemStyle}>Design Consultation</li>
                 <li style={listItemStyle}>Consultation + Execution</li>
               </ul>
-            </div>
+            </div> */}
+          {/* </div> */}
 
             {/* Column 3: Contact */}
             <div>
@@ -65,7 +66,6 @@ const Footer = () => {
                 <li style={listItemStyle}>Info@Glocaldesign.Com</li>
               </ul>
             </div>
-          </div>
 
           {/* Social Icons Container - Now back to the far right, level with email */}
           <div style={{ display: 'flex', gap: '0.8rem' }}>
