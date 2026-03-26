@@ -10,7 +10,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const useScrollAnimation = (canvasRef, framePreloader, totalFrames = 361) => {
+export const useScrollAnimation = (canvasRef, framePreloader, totalFrames = 361, isMobile = false) => {
   const scrollTriggerRef = useRef(null);
   const lastFrameRef = useRef(-1);
 
@@ -19,7 +19,7 @@ export const useScrollAnimation = (canvasRef, framePreloader, totalFrames = 361)
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: false });
-    
+
     // Optimize canvas rendering
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
@@ -27,7 +27,7 @@ export const useScrollAnimation = (canvasRef, framePreloader, totalFrames = 361)
     // Draw frame function with caching to avoid re-drawing same frame
     const drawFrame = (frameIndex) => {
       const floorIndex = Math.floor(frameIndex);
-      
+
       // Skip if already drawn this frame
       if (lastFrameRef.current === floorIndex) return;
       lastFrameRef.current = floorIndex;
@@ -72,21 +72,22 @@ export const useScrollAnimation = (canvasRef, framePreloader, totalFrames = 361)
         drawFrame(frameIndex);
       },
       onRefresh: (self) => {
-         // Fix canvas sizing on refresh
-         canvas.width = window.innerWidth;
-         canvas.height = window.innerHeight;
-         lastFrameRef.current = -1; // Reset frame cache on resize
-         // Draw the CORRECT frame for the current scroll position
-         const frameIndex = self.progress * (totalFrames - 1);
-         drawFrame(frameIndex);
+        // Fix canvas sizing on refresh
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        lastFrameRef.current = -1; // Reset frame cache on resize
+        // Draw the CORRECT frame for the current scroll position
+        const frameIndex = self.progress * (totalFrames - 1);
+        drawFrame(frameIndex);
       }
     });
 
     // Initial draw
     const init = async () => {
-      // Ensure first frame is ready
-      await framePreloader.loadFrame(0);
-      drawFrame(0);
+      // On mobile, start with frame 1; on desktop, start with frame 0
+      const initialFrame = isMobile ? 1 : 0;
+      await framePreloader.loadFrame(initialFrame);
+      drawFrame(initialFrame);
       // Refresh to sync with current scroll if already scrolled
       ScrollTrigger.refresh();
     };
@@ -95,7 +96,7 @@ export const useScrollAnimation = (canvasRef, framePreloader, totalFrames = 361)
     return () => {
       if (scrollTriggerRef.current) scrollTriggerRef.current.kill();
     };
-  }, [canvasRef, framePreloader, totalFrames]);
+  }, [canvasRef, framePreloader, totalFrames, isMobile]);
 
   return { scrollTrigger: scrollTriggerRef.current };
 };

@@ -1,4 +1,4 @@
-/**
+ /**
  * Professional Loading Screen
  * Shows while frames are loading
  * Includes animated logo and smooth progress indicator
@@ -9,9 +9,13 @@ import React, { useState, useEffect } from 'react';
 const LoadingScreen = ({ isLoading, progress = 0 }) => {
   const [displayProgress, setDisplayProgress] = useState(0);
 
-  // Smooth progress animation
+  // Smooth progress animation (only increases, never decreases)
   useEffect(() => {
-    setDisplayProgress(Math.min(progress, 100));
+    setDisplayProgress(prev => {
+      const newProgress = Math.min(progress, 100);
+      // Only update if the new progress is greater than or equal to current
+      return Math.max(prev, newProgress);
+    });
   }, [progress]);
 
   if (!isLoading) return null;
@@ -51,7 +55,7 @@ const LoadingScreen = ({ isLoading, progress = 0 }) => {
       </div>
 
       {/* Animated Ring */}
-      <div
+      {/* <div
         style={{
           marginBottom: '2.5rem',
           position: 'relative',
@@ -103,7 +107,7 @@ const LoadingScreen = ({ isLoading, progress = 0 }) => {
             opacity="0.4"
           />
         </svg>
-      </div>
+      </div> */}
 
       {/* Progress Bar Container */}
       <div
@@ -129,21 +133,6 @@ const LoadingScreen = ({ isLoading, progress = 0 }) => {
           }}
         />
       </div>
-
-      {/* Progress Text */}
-      <p
-        style={{
-          fontFamily: "'Urbanist', sans-serif",
-          fontSize: '0.85rem',
-          color: '#9a9a9a',
-          margin: 0,
-          letterSpacing: '0.1em',
-          textTransform: 'uppercase',
-          fontWeight: 500,
-        }}
-      >
-        {Math.round(displayProgress)}%
-      </p>
 
       {/* Floating Dots Animation */}
       <div
