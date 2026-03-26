@@ -83,7 +83,7 @@ const DesignStyles = () => {
     const handleResize = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
-      setHovered(mobile ? 3 : null); // open 4th style on mobile
+      setHovered(null); // No images open by default
     };
     handleResize();
     window.addEventListener('resize', handleResize);

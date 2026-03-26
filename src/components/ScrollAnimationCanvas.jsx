@@ -4,26 +4,58 @@
  * LERP-based smooth rendering with sticky canvas
  */
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import FramePreloader from '../utils/framePreloader';
 
-const ScrollAnimationCanvas = ({ totalFrames = 377 }) => {
+const ScrollAnimationCanvas = ({ totalFrames = 377, onLoadingProgress }) => {
   const canvasRef = useRef(null);
   const framePreloaderRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [effectiveFrames, setEffectiveFrames] = useState(totalFrames);
+  const [framePath, setFramePath] = useState('/frames');
+  const [progress, setProgress] = useState(0);
 
-  // Initialize preloader
-  if (!framePreloaderRef.current) {
-    framePreloaderRef.current = new FramePreloader(totalFrames);
+  // Detect mobile on mount and on resize
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      
+      if (mobile) {
+        setEffectiveFrames(224);
+        setFramePath('/frames2');
+      } else {
+        setEffectiveFrames(377);
+        setFramePath('/frames');
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Initialize preloader with responsive frames
+  if (!framePreloaderRef.current || framePreloaderRef.current.framePath !== framePath) {
+    framePreloaderRef.current = new FramePreloader(effectiveFrames, framePath);
+    
+    // Register progress callback
+    framePreloaderRef.current.onProgress((progress) => {
+      setProgress(progress);
+      if (onLoadingProgress) {
+        onLoadingProgress(progress);
+      }
+    });
   }
 
   // Hook for LERP animation
-  useScrollAnimation(canvasRef, framePreloaderRef.current, totalFrames);
+  useScrollAnimation(canvasRef, framePreloaderRef.current, effectiveFrames);
 
   // Preload all frames
   useEffect(() => {
     framePreloaderRef.current.preloadFrames();
-  }, [totalFrames]);
+  }, [effectiveFrames, framePath]);
 
   // Setup canvas size
   useEffect(() => {

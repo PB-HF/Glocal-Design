@@ -5,12 +5,25 @@
  */
 
 class FramePreloader {
-  constructor(totalFrames = 120) {
+  constructor(totalFrames = 120, framePath = '/frames') {
     this.totalFrames = totalFrames;
+    this.framePath = framePath;
     this.frames = [];
     this.loadedCount = 0;
     this.isLoading = false;
     this.padding = String(totalFrames).length; // For frame numbering (e.g., 4 digits)
+    this.progressCallbacks = [];
+  }
+
+  // Register callback for progress updates
+  onProgress(callback) {
+    this.progressCallbacks.push(callback);
+  }
+
+  // Emit progress to all callbacks
+  emitProgress(loaded, total) {
+    const progress = (loaded / total) * 100;
+    this.progressCallbacks.forEach(cb => cb(progress));
   }
 
   /**
@@ -66,12 +79,13 @@ class FramePreloader {
   loadFrame(index) {
     return new Promise((resolve, reject) => {
       const frameNum = this.getFrameNumber(index);
-      const imgPath = `/frames/Gd_${frameNum}.webp`;
+      const imgPath = `${this.framePath}/Gd_${frameNum}.webp`;
 
       const img = new Image();
       img.onload = () => {
         this.frames[index] = img;
         this.loadedCount++;
+        this.emitProgress(this.loadedCount, this.totalFrames);
         if (index < 3 || index % 100 === 0) {
           console.log(`  ✓ Frame ${index}: ${imgPath}`);
         }
@@ -80,6 +94,7 @@ class FramePreloader {
       img.onerror = (err) => {
         console.error(`  ✗ Frame ${index}: ${imgPath} - Error: ${err}`);
         this.loadedCount++; // Still count it to track progress
+        this.emitProgress(this.loadedCount, this.totalFrames);
         reject(new Error(`Failed: ${imgPath}`));
       };
       img.src = imgPath;

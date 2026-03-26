@@ -242,17 +242,15 @@ const ProjectsCarousel = ({ subtitle }) => {
         
         <p style={{
           fontFamily: "'Urbanist', sans-serif",
-          fontSize: '0.75rem',
+          fontSize: isMobile ? '0.65rem' : '0.75rem',
           letterSpacing: '0.24em',
           textTransform: 'uppercase',
           color: '#8b8b8b',
-          marginBottom: '0.3rem',
           fontWeight: 600,
           borderBottom: '1px solid #e2d8d8ff',
           paddingBottom: '2px',
           display: 'inline-block',
-          margin: 0,
-          marginBottom: '0.3rem',
+          margin: '0 0 0.3rem 0',
         }}>
           {splitLetters(subtitle || 'Projects')}
         </p>
@@ -260,7 +258,7 @@ const ProjectsCarousel = ({ subtitle }) => {
         <h2 style={{
           fontFamily: "'Lacroom', serif",
           fontWeight: 400,
-          fontSize: isMobile ? 'clamp(1.8rem, 6vw, 2.5rem)' : 'clamp(2.5rem, 6vw, 4.2rem)',
+          fontSize: isMobile ? 'clamp(1.5rem, 5vw, 2.5rem)' : 'clamp(2.5rem, 6vw, 4.2rem)',
           color: '#2b2b2b',
           lineHeight: 1.05,
           marginBottom: '0.4rem',
@@ -270,9 +268,9 @@ const ProjectsCarousel = ({ subtitle }) => {
         <p style={{
           fontFamily: "'Urbanist', sans-serif",
           fontWeight: 300,
-          fontSize: isMobile ? '0.95rem' : '1.3rem',
+          fontSize: isMobile ? '0.9rem' : '1.3rem',
           color: '#6b6b6b',
-          maxWidth: '470px',
+          maxWidth: isMobile ? '90%' : '470px',
           lineHeight: 1.6,
           margin: '0.2rem auto 0',
         }}>

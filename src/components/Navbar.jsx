@@ -346,6 +346,15 @@ const Navbar = () => {
   const menuRef = useRef(null);
   const linksRef = useRef([]);
   const navRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile on resize
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // ── Fix 1: Scroll state (for frosted bg) ──
   const [scrolled, setScrolled] = useState(false);
@@ -537,11 +546,11 @@ const Navbar = () => {
             src="/images/logo.png"
             alt="Glocal Design Logo"
             style={{
-              height: '50px',
+              height: isMobile ? '32px' : '50px',
               width: 'auto',
               objectFit: 'contain',
               filter: logoFilter,
-              transition: 'filter 0.4s ease',
+              transition: 'filter 0.4s ease, height 0.3s ease',
             }}
           />
         </div>
@@ -553,13 +562,13 @@ const Navbar = () => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '8px',
-              backgroundColor: '#323232', // Matches dark design
+              gap: isMobile ? '6px' : '8px',
+              backgroundColor: '#323232',
               color: '#ffffff',
-              padding: '0.65rem 1.4rem',
+              padding: isMobile ? '0.5rem 1rem' : '0.65rem 1.4rem',
               borderRadius: '9999px',
               fontFamily: "'Urbanist', sans-serif",
-              fontSize: '1rem',
+              fontSize: isMobile ? '0.8rem' : '1rem',
               fontWeight: 500,
               textDecoration: 'none',
               transition: 'background-color 0.3s ease, transform 0.3s ease',
@@ -567,10 +576,10 @@ const Navbar = () => {
             }}
             className="hover:scale-105 active:scale-95"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" width={isMobile ? "14" : "16"} height={isMobile ? "14" : "16"} viewBox="0 0 24 24" fill="currentColor">
               <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
             </svg>
-            <span>+91 8860870874</span>
+            <span>{isMobile ? "+91 8860870874" : "+91 8860870874"}</span>
           </a>
         </div>
       </nav>

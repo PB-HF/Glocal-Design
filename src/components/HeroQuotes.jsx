@@ -4,7 +4,7 @@
  * Uses GSAP ScrollTrigger for smooth fade-in/out
  */
 
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -13,6 +13,14 @@ gsap.registerPlugin(ScrollTrigger);
 const HeroQuotes = () => {
   const containerRef = useRef(null);
   const shadowRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Helper to wrap every letter in a span
   const splitLetters = (text) => {
@@ -109,19 +117,20 @@ const HeroQuotes = () => {
         }}
       />
 
-      <div className="max-w-[1500px] mx-auto flex items-end justify-between">
+      <div className={isMobile ? "flex flex-col gap-4" : "max-w-[1500px] mx-auto flex items-end justify-between"}>
 
         {/* Bottom Left Quote */}
-        <div className="max-w-[450px]">
+        <div className={isMobile ? "w-full" : "max-w-[450px]"}>
           <h3
             style={{
               fontFamily: "'Urbanist', sans-serif",
-              fontSize: 'clamp(1rem, 1.8vw, 1.8rem)',
+              fontSize: isMobile ? 'clamp(0.95rem, 4vw, 1.2rem)' : 'clamp(1rem, 1.8vw, 1.8rem)',
               fontWeight: 400,
-              lineHeight: 1.1,
+              lineHeight: 1.2,
               color: '#FFFFFF',
               textShadow: '0 4px 20px rgba(0,0,0,0.8)',
               margin: 0,
+              textAlign: isMobile ? 'center' : 'left',
             }}
           >
             {splitLetters("Homes That Reflect")}
@@ -131,16 +140,17 @@ const HeroQuotes = () => {
         </div>
 
         {/* Bottom Right Quote */}
-        <div className="max-w-[650px] text-right">
+        <div className={isMobile ? "w-full" : "max-w-[650px] text-right"}>
           <p
             style={{
               fontFamily: "'Urbanist', sans-serif",
-              fontSize: 'clamp(1rem, 1.8vw, 1.8rem)',
+              fontSize: isMobile ? 'clamp(0.95rem, 4vw, 1.2rem)' : 'clamp(1rem, 1.8vw, 1.8rem)',
               fontWeight: 400,
-              lineHeight: 1.1,
+              lineHeight: 1.2,
               color: '#ffffff',
               textShadow: '0 4px 20px rgba(0,0,0,0.8)',
               margin: 0,
+              textAlign: isMobile ? 'center' : 'right',
             }}
           >
             {splitLetters("Great Interiors Don't Begin With Layouts")}

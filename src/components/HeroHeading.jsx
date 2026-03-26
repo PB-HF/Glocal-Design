@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowDown } from 'lucide-react';
@@ -7,6 +7,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 const HeroHeading = () => {
   const componentRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -61,7 +69,7 @@ const HeroHeading = () => {
           style={{
             fontFamily: "'Lacroom', serif",
             fontWeight: 400,
-            fontSize: 'clamp(4rem, 7.5vw, 7.5rem)',
+            fontSize: isMobile ? 'clamp(2rem, 5vw, 4rem)' : 'clamp(4rem, 7.5vw, 7.5rem)',
             lineHeight: 1.05,
             color: '#323232',
             textTransform: 'uppercase',
@@ -75,13 +83,13 @@ const HeroHeading = () => {
           style={{
             fontFamily: "'Lacroom', serif",
             fontWeight: 400,
-            fontSize: 'clamp(4rem, 7.5vw, 7.5rem)',
+            fontSize: isMobile ? 'clamp(2rem, 5vw, 4rem)' : 'clamp(4rem, 7.5vw, 7.5rem)',
             lineHeight: 1.05,
             color: '#323232',
             textTransform: 'uppercase',
             margin: 0,
             letterSpacing: '-0.02em',
-            whiteSpace: 'nowrap'
+            whiteSpace: isMobile ? 'normal' : 'nowrap'
           }}
         >
           YOUR <span style={{ color: '#B2000A' }}>DREAM</span> SPACE
@@ -94,10 +102,10 @@ const HeroHeading = () => {
           className="text-center mx-auto"
           style={{
             fontFamily: "'Urbanist', sans-serif",
-            fontSize: '1.25rem',
+            fontSize: isMobile ? '1rem' : '1.25rem',
             lineHeight: 1.5,
             color: '#323232',
-            maxWidth: '550px',
+            maxWidth: isMobile ? '90%' : '550px',
             marginBottom: '2.5rem',
             fontWeight: 400,
           }}
