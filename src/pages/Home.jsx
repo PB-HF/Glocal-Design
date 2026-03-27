@@ -106,7 +106,7 @@ const Home = () => {
     
       
       <ProjectsCarousel />
-      <ContactForm />
+      {!isMobile && <ContactForm />}
       <Footer />
     </div>
   );
