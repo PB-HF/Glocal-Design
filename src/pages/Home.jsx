@@ -103,8 +103,10 @@ const Home = () => {
 
       <BeforeAfter />
       <DesignStyles />
+      {/*
       <SectionHeader />
       <ServicesSection />
+      */}
       <ProjectsCarousel />
       <ContactForm />
       <Footer />
