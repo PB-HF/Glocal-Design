@@ -8,12 +8,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import FramePreloader from '../utils/framePreloader';
 
+// ImageKit CDN base URL (set in .env as VITE_IMAGEKIT_URL)
+// e.g. VITE_IMAGEKIT_URL=https://ik.imagekit.io/your_id
+// If not set, falls back to local /frames path
+const IMAGEKIT_URL = import.meta.env.VITE_IMAGEKIT_URL || '';
+
 const ScrollAnimationCanvas = ({ totalFrames = 377, onLoadingProgress }) => {
   const canvasRef = useRef(null);
   const framePreloaderRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   const [effectiveFrames, setEffectiveFrames] = useState(totalFrames);
-  const [framePath, setFramePath] = useState('/frames');
+  const [framePath, setFramePath] = useState(IMAGEKIT_URL ? `${IMAGEKIT_URL}/frames` : '/frames');
   const [progress, setProgress] = useState(0);
 
   // Detect mobile on mount and on resize
@@ -24,10 +29,10 @@ const ScrollAnimationCanvas = ({ totalFrames = 377, onLoadingProgress }) => {
       
       if (mobile) {
         setEffectiveFrames(224);
-        setFramePath('/frames2');
+        setFramePath(IMAGEKIT_URL ? `${IMAGEKIT_URL}/frames2` : '/frames2');
       } else {
         setEffectiveFrames(377);
-        setFramePath('/frames');
+        setFramePath(IMAGEKIT_URL ? `${IMAGEKIT_URL}/frames` : '/frames');
       }
     };
 

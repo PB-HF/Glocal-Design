@@ -1,65 +1,59 @@
 /**
  * Home Page Component
- * LERP-based scroll animation with 200vh scroll area
+ * Desktop: New split hero (HeroDesktopSection) + AutoplayVideoSection
+ * Mobile: HeroMobileSection + MobileFormSection (new clean layout)
  */
 
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
-import HeroHeading from '../components/HeroHeading';
-import HeroQuotes from '../components/HeroQuotes';
-// import ImageRevealStack from '../components/ImageRevealStack';
-import ScrollAnimationCanvas from '../components/ScrollAnimationCanvas';
+import HeroDesktopSection from '../components/HeroDesktopSection';
+import AutoplayVideoSection from '../components/AutoplayVideoSection';
+
+// Mobile-specific new layout
+import HeroMobileSection from '../components/HeroMobileSection';
+import MobileFormSection from '../components/MobileFormSection';
+
+// Old mobile animation (commented out — kept for reference)
+// import HeroHeading from '../components/HeroHeading';
+// import HeroQuotes from '../components/HeroQuotes';
+// import ScrollAnimationVideo from '../components/ScrollAnimationVideo';
+
 import AboutUs from '../components/AboutUs';
 import BeforeAfter from '../components/BeforeAfter';
 import DesignStyles from '../components/DesignStyles';
-// import FeaturedProjects from '../components/FeaturedProjects';
 import ProjectsCarousel from '../components/ProjectsCarousel';
 import ServicesSection from '../components/ServicesSection';
 import SectionHeader from '../components/SectionHeader';
 import ContactForm from '../components/ContactForm';
 import Footer from '../components/Footer';
-import LoadingScreen from '../components/LoadingScreen';
 
 const Home = () => {
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleLoadingProgress = (progress) => {
-    setLoadingProgress(progress);
-    // Hide loading screen when fully loaded
-    if (progress >= 100) {
-      setTimeout(() => setIsLoading(false), 300);
-    }
-  };
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Show arrow only after scrolling past ~2000px (frame sections)
-      if (window.scrollY > 2000) {
-        setShowScrollButton(true);
-      } else {
-        setShowScrollButton(false);
-      }
-    };
-
+    const handleScroll = () => setShowScrollButton(window.scrollY > 2000);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <div className="relative w-full overflow-x-hidden">
-      {/* Loading Screen */}
-      <LoadingScreen isLoading={isLoading} progress={loadingProgress} />
-
-      {/* Scroll To Top Button - Show only after frame sections */}
+      {/* Scroll To Top Button */}
       {showScrollButton && (
         <div className="fixed bottom-8 right-8 md:bottom-10 md:right-10 z-50 animate-bounce">
-          <button 
+          <button
             onClick={scrollToTop}
             className="w-10 h-10 md:w-12 md:h-12 border border-[#c4c4c4] rounded-full flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all duration-300 shadow-sm bg-white"
             aria-label="Scroll to top"
@@ -74,40 +68,41 @@ const Home = () => {
       {/* Navigation Bar */}
       <Navbar />
 
-      {/* Canvas background (fixed, behind everything) */}
-      <ScrollAnimationCanvas totalFrames={377} onLoadingProgress={handleLoadingProgress} />
+      {/* ══════════════════════════════════════════════
+          DESKTOP LAYOUT (≥768px)
+      ══════════════════════════════════════════════ */}
+      <HeroDesktopSection />
+      <AutoplayVideoSection />
 
-      {/* Hero Heading (positioned over canvas) */}
-      <HeroHeading />
-      <HeroQuotes />
+      {/* ══════════════════════════════════════════════
+          MOBILE LAYOUT (<768px)
+          New: HeroMobileSection + MobileFormSection
+          Old scroll animation commented out below:
+            <ScrollAnimationVideo />
+            <HeroHeading />
+            <HeroQuotes />
+            <div className="h-[350vh]" />
+      ══════════════════════════════════════════════ */}
+      {isMobile && (
+        <>
+          <HeroMobileSection />
+          <MobileFormSection />
+        </>
+      )}
 
-      {/* Image Reveal Stack Section */}
-
-      {/* 350vh scroll trigger area — provides enough space for the 400 frames to animate at a good pace */}
-      <div className="h-[350vh]" />
-
-      {/* AboutUs Section — appears after scroll animation completes */}
+      {/* ══════════════════════════════════════════════
+          SHARED SECTIONS (desktop + mobile)
+      ══════════════════════════════════════════════ */}
       <div id="about-us" className="relative z-20 bg-[#FAF8F5]">
         <AboutUs />
       </div>
 
-      {/* <ImageRevealStack /> */}
-      {/* Before / After scroll comparison */}
       <BeforeAfter />
-
-      {/* Design Styles hover accordion */}
       <DesignStyles />
       <SectionHeader />
       <ServicesSection />
-      {/* Antigravity Featured Projects Grid */}
-      {/* <FeaturedProjects /> */}
-      {/* Projects drag carousel */}
       <ProjectsCarousel />
-
-      {/* Floating Envelope Contact Form */}
       <ContactForm />
-
-      {/* Main Footer */}
       <Footer />
     </div>
   );

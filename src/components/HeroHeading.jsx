@@ -129,21 +129,10 @@ const HeroHeading = () => {
             transition: 'all 0.3s ease',
           }}
           className="hover:scale-105 hover:brightness-110 active:scale-95 shadow-lg"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={() => {
             const contactSection = document.getElementById('contact');
             if (contactSection) {
-              // 1. Jump instantly to the top of the contact section
-              const startY = contactSection.getBoundingClientRect().top + window.scrollY;
-              window.scrollTo({ top: startY, behavior: 'auto' });
-              
-              // 2. Automatically 'play' the animation by smooth-scrolling through the pin duration
-              setTimeout(() => {
-                window.scrollTo({ 
-                  top: startY + (window.innerHeight * 0.8), // Matches +=80% end trigger in ContactForm
-                  behavior: 'smooth' 
-                });
-              }, 50);
+              contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
           }}
         >
