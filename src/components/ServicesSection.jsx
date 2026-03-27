@@ -32,7 +32,7 @@ const SERVICES = [
 ];
 
 /* ─── Mobile card — GSAP scroll-triggered fade+slide (NO pin) ─── */
-const MobileServiceCard = ({ service, index }) => {
+const MobileServiceCard = ({ service }) => {
   const cardRef = useRef(null);
 
   useEffect(() => {

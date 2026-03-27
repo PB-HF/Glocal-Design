@@ -33,7 +33,7 @@ const ContactForm = () => {
       case 'phone':
         if (!/^[0-9]{10}$/.test(value)) error = "Enter a valid 10-digit number";
         break;
-      case 'email':
+      case 'email': {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         const forbiddenKeywords = ['exahut', 'mailinator', 'yopmail', 'temp', 'disposable', 'dropmail', 'tmail', 'guerrilla'];
         const domain = value.toLowerCase().split('@')[1] || "";
@@ -44,6 +44,7 @@ const ContactForm = () => {
           error = "Temporary/Fake emails not allowed";
         }
         break;
+      }
       case 'description':
         if (value.length < 10) error = "Min 10 characters required";
         break;
@@ -112,12 +113,8 @@ const ContactForm = () => {
           scrub: 1,
           pin: true,
           anticipatePin: 1,
-          snap: {
-            snapTo: [0, 0.5, 1],
-            duration: 0.4,
-            ease: 'power1.inOut',
-            delay: 0,
-          },
+          invalidateOnRefresh: true,
+          fastScrollEnd: true,
         },
       });
 
