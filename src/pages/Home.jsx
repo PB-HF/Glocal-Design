@@ -30,7 +30,8 @@ import Footer from '../components/Footer';
 
 const Home = () => {
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  // Initialise synchronously to avoid a flash where both desktop + mobile render
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -38,7 +39,6 @@ const Home = () => {
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -73,19 +73,17 @@ const Home = () => {
       {isMobile && <ContactPopup />}
 
       {/* ══════════════════════════════════════════════
-          DESKTOP LAYOUT (≥768px)
+          DESKTOP LAYOUT (≥768px) — only mounted on desktop
       ══════════════════════════════════════════════ */}
-      <HeroDesktopSection />
-      <AutoplayVideoSection />
+      {!isMobile && (
+        <>
+          <HeroDesktopSection />
+          <AutoplayVideoSection />
+        </>
+      )}
 
       {/* ══════════════════════════════════════════════
-          MOBILE LAYOUT (<768px)
-          New: HeroMobileSection + MobileFormSection
-          Old scroll animation commented out below:
-            <ScrollAnimationVideo />
-            <HeroHeading />
-            <HeroQuotes />
-            <div className="h-[350vh]" />
+          MOBILE LAYOUT (<768px) — only mounted on mobile
       ══════════════════════════════════════════════ */}
       {isMobile && (
         <>
@@ -105,10 +103,10 @@ const Home = () => {
       <DesignStyles />
       <SectionHeader />
       <ServicesSection />
-      {/*
-      <ContactForm />
-      */}
+    
+      
       <ProjectsCarousel />
+      <ContactForm />
       <Footer />
     </div>
   );

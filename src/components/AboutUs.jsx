@@ -13,11 +13,10 @@ gsap.registerPlugin(ScrollTrigger);
 const AboutUs = () => {
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
 
   useEffect(() => {
     const updateMobile = () => setIsMobile(window.innerWidth < 768);
-    updateMobile();
     window.addEventListener('resize', updateMobile);
     return () => window.removeEventListener('resize', updateMobile);
   }, []);

@@ -79,7 +79,7 @@ const CARD_H = 420;
 
 const ProjectsCarousel = ({ subtitle }) => {
   const [activeIdx, setActiveIdx] = useState(2);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
   const isDragging = useRef(false);
   const dragStartX = useRef(0);
   const dragDelta = useRef(0);
@@ -87,7 +87,6 @@ const ProjectsCarousel = ({ subtitle }) => {
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -228,7 +227,7 @@ const ProjectsCarousel = ({ subtitle }) => {
       ref={sectionRef}
       style={{
         position: 'relative',
-        zIndex: 20,
+        zIndex: 5,
         width: '100%',
         backgroundColor: '#FAF8F5',
         paddingTop: '1rem',

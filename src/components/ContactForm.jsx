@@ -10,7 +10,7 @@ const ContactForm = () => {
   const sectionRef = useRef(null);
   const formBoxRef = useRef(null);
   const labelRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
 
   // --- Form State ---
   const [formData, setFormData] = useState({
@@ -96,7 +96,6 @@ const ContactForm = () => {
   // --- Responsiveness & GSAP ---
   useEffect(() => {
     const updateMobile = () => setIsMobile(window.innerWidth < 768);
-    updateMobile();
     window.addEventListener('resize', updateMobile);
     return () => window.removeEventListener('resize', updateMobile);
   }, []);
@@ -130,8 +129,8 @@ const ContactForm = () => {
       const formContents = formBoxRef.current.children;
       gsap.set(formContents, { opacity: 0 });
 
-      tl.to(formBoxRef.current, { height: '80vh', opacity: 1, ease: 'none', duration: 0.5 })
-        .to(labelRef.current, { y: '80vh', opacity: 1, ease: 'none', duration: 0.5 }, 0)
+      tl.to(formBoxRef.current, { height: '80dvh', opacity: 1, ease: 'none', duration: 0.5 })
+        .to(labelRef.current, { y: '80dvh', opacity: 1, ease: 'none', duration: 0.5 }, 0)
         .to(labelRef.current, { opacity: 0, duration: 0.1 })
         .to(formBoxRef.current, { 
           width: '90%', maxWidth: '1000px', borderRadius: '0px', 
@@ -198,7 +197,7 @@ const ContactForm = () => {
 };
 
 // --- Static Styles ---
-const sectionStyle = { position: 'relative', width: '100%', height: '100vh', backgroundImage: `url(${contactBg})`, backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '10vh', overflow: 'hidden', zIndex: 10 };
+const sectionStyle = { position: 'relative', width: '100%', height: '100dvh', backgroundImage: `url(${contactBg})`, backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', paddingTop: '10vh', overflow: 'hidden', zIndex: 10 };
 const noiseOverlayStyle = { position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.35, pointerEvents: 'none', backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter=\`url(%23noiseFilter)\`/%3E%3C/svg%3E")`, mixBlendMode: 'overlay', zIndex: 1 };
 const formBoxStyle = { backgroundColor: '#ffffff', boxShadow: '0 0 50px rgba(0,0,0,0.3)', marginTop: '0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', willChange: 'width, height, clip-path', overflow: 'hidden' };
 const headingStyle = { fontFamily: "'Lacroom', serif", fontWeight: 400, color: '#2b2b2b', lineHeight: 1.1, textAlign: 'center', marginBottom: '2rem' };

@@ -68,7 +68,7 @@ const MobileFormSection = () => {
       id="mobile-form-section"
       style={{
         width: '100%',
-        minHeight: '100vh',
+        minHeight: '100dvh',
         backgroundColor: '#B2000A',
         display: 'flex',
         alignItems: 'center',
