@@ -12,6 +12,7 @@ import AutoplayVideoSection from '../components/AutoplayVideoSection';
 // Mobile-specific new layout
 import HeroMobileSection from '../components/HeroMobileSection';
 import MobileFormSection from '../components/MobileFormSection';
+import ContactPopup from '../components/ContactPopup';
 
 // Old mobile animation (commented out — kept for reference)
 // import HeroHeading from '../components/HeroHeading';
@@ -67,6 +68,9 @@ const Home = () => {
 
       {/* Navigation Bar */}
       <Navbar />
+
+      {/* Mobile Contact Popup */}
+      {isMobile && <ContactPopup />}
 
       {/* ══════════════════════════════════════════════
           DESKTOP LAYOUT (≥768px)
