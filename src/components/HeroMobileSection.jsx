@@ -15,7 +15,7 @@ const HeroMobileSection = () => {
     <section style={{
       position: 'relative',
       width: '100%',
-      height: '100dvh',
+      height: '100svh',
       backgroundColor: '#FAF8F5',
       display: 'flex',
       flexDirection: 'column',

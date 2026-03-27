@@ -60,7 +60,7 @@ const MobileServiceCard = ({ service}) => {
   return (
     <div ref={cardRef} style={{
       width: '100%',
-      height: '85dvh',
+      height: '85svh',
       borderRadius: '28px',
       overflow: 'hidden',
       display: 'flex',
@@ -188,7 +188,7 @@ const DesktopServicesSection = () => {
       backgroundColor: '#FAF8F5',
     }}>
       <div ref={containerRef} style={{
-        width: '100%', height: '100dvh',
+        width: '100%', height: '100svh',
         position: 'relative', zIndex: 10,
         overflow: 'hidden',
         display: 'flex', flexDirection: 'column',
@@ -197,7 +197,7 @@ const DesktopServicesSection = () => {
       }}>
         <div style={{
           position: 'relative', width: '100%',
-          maxWidth: '1600px', height: '80dvh',
+          maxWidth: '1600px', height: '80svh',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }}>
           {SERVICES.map((service, idx) => (
